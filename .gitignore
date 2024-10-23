@@ -7,6 +7,7 @@ IS2_TPFI_credentials.json
 IS2_TPFI_insert.py
 IS2_TPFI_test.py
 prueba.py
+eliminarLogs.py
 
 # archivos .pyc
 __pycache__/
