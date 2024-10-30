@@ -14,8 +14,7 @@ def list_last_log():
         # Listar todos los logs y obtener el último
         logs = corporate_log.listLogs(platform.node())  
 
-        if logs:
-            
+        if logs:           
             total_logs = len(logs)
             print(f"Total de logs encontrados: {total_logs}")
             # Ordenar los logs por 'timestamp' de forma ascendente para obtener el más reciente

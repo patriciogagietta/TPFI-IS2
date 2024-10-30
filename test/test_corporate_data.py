@@ -52,7 +52,6 @@ class TestCorporateData(unittest.TestCase):  # Definir la clase de pruebas que h
         # Verificar que ambas instancias son la misma (patrón Singleton)
         self.assertIs(self.corporate_data, another_instance, "CorporateData no es un Singleton: se han creado múltiples instancias.")
 
-
 if __name__ == '__main__':
     unittest.main()
 

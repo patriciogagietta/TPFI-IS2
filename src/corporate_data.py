@@ -164,6 +164,3 @@ class CorporateData:
         except ClientError as e:
             logger.error(f"Error al listar logs: {str(e)}")
             return json.dumps({"error": str(e)})
-
-
-

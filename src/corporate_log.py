@@ -87,15 +87,3 @@ class CorporateLog:
     def listLogs(self, cpu_id, uuid_session=None):
         return self.log.list(cpu_id, uuid_session)
     
-    
-
-
-
-
-
-
-
-
-
-
-
