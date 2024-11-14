@@ -12,17 +12,17 @@ class TestCorporateLog:
     
     def __init__(self):
         # Configuración inicial
-        self.corporate_log = CorporateLog()  
-        self.uuid_session = str(uuid.uuid4())  
+        self.corporate_log = CorporateLog()    
         self.uuidCPU = platform.node()
         self.cpu_id = str(uuid.getnode())
 
     # Probar el registro de un evento exitoso
     def test_log_event_success(self):
-        print(f"Ejecutando test_log_event_success (evento exitoso) con uuid_session: {self.uuid_session} y uuidCPU: {self.uuidCPU}")
+        uuid_session = str(uuid.uuid4())
+        print(f"Ejecutando test_log_event_success (evento exitoso) con uuid_session: {uuid_session} y uuidCPU: {self.uuidCPU}")
         
         # Registrar el evento
-        self.corporate_log.logEvent(self.uuid_session, "test_log_event_success")  
+        self.corporate_log.logEvent(uuid_session, "test_log_event_success")  
         
         # Listar los logs después del registro
         logs = self.corporate_log.listLogs(self.cpu_id)  
@@ -38,7 +38,11 @@ class TestCorporateLog:
 
     # Probar la lista de logs cuando se proporciona un ID de CPU inválido
     def test_list_logs_no_cpu(self):
-        print(f"Ejecutando test_list_logs_no_cpu (cpu inválido) con uuid_session: {self.uuid_session} y uuidCPU: {self.uuidCPU}")
+        uuid_session = str(uuid.uuid4())
+        print(f"Ejecutando test_list_logs_no_cpu (cpu inválido) con uuid_session: {uuid_session} y uuidCPU: {self.uuidCPU}")
+
+        # Registrar el evento
+        self.corporate_log.logEvent(uuid_session, "test_list_logs_no_cpu") 
         
         # Intentar obtener logs con un ID de CPU inválido
         logs = self.corporate_log.listLogs("invalid_cpu")  
@@ -65,6 +69,6 @@ class TestCorporateLog:
 # Ejecución de las pruebas
 if __name__ == '__main__':
     tester = TestCorporateLog()
-    tester.test_log_event_success()
     tester.test_list_logs_no_cpu()
+    tester.test_log_event_success()
     tester.test_singleton_corporate_log()
