@@ -14,7 +14,8 @@ class TestCorporateLog:
         # Configuración inicial
         self.corporate_log = CorporateLog()  
         self.uuid_session = str(uuid.uuid4())  
-        self.uuidCPU = platform.node()  
+        self.uuidCPU = platform.node()
+        self.cpu_id = str(uuid.getnode())
 
     # Probar el registro de un evento exitoso
     def test_log_event_success(self):
@@ -24,7 +25,7 @@ class TestCorporateLog:
         self.corporate_log.logEvent(self.uuid_session, "test_log_event_success")  
         
         # Listar los logs después del registro
-        logs = self.corporate_log.listLogs(self.uuidCPU)  
+        logs = self.corporate_log.listLogs(self.cpu_id)  
         
         if len(logs) == 0:
             print("Error en test_log_event_success: No se encontró ningún log después de registrar el evento.")
