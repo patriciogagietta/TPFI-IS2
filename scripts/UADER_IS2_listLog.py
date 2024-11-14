@@ -12,7 +12,7 @@ def list_last_log():
     corporate_log = CorporateLog()
 
     cpu_idd = str(uuid.getnode())
-    session_id = session_id = str(uuid.uuid4())
+    session_id = str(uuid.uuid4())
 
     # Almacenar el evento en el log
     corporate_log.logEvent(session_id, "list_last_log")
