@@ -3,12 +3,20 @@ import uuid
 import os
 import sys
 import platform
+from decimal import Decimal
 
 # Agregar la carpeta raíz del proyecto al PYTHONPATH
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from config import ID_KEY  # Importa solo ID_KEY desde config
 from src.corporate_data import CorporateData  # Asegúrate de que la clase esté importada correctamente
 from src.corporate_log import CorporateLog  # Importar CorporateLog
+
+def decimal_default(obj):
+    if isinstance(obj, Decimal):
+        return float(obj)
+    elif isinstance(obj, int):  # Si es un entero se retorna como esta
+        return obj
+    raise TypeError
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -28,6 +36,10 @@ def pruebaGetData():
     # Generar UUIDs
     session_id = str(uuid.uuid4())  
     uuid_cpu = platform.node()  
+
+    print("-----------------------------------------------------------")
+    print("SESION ID pruebaGetData", session_id)
+    print("-----------------------------------------------------------")
 
     corporate_data = CorporateData()
     print("Creando instancia de CorporateData...")
@@ -87,6 +99,10 @@ def pruebaGetCUIT():
     session_id = str(uuid.uuid4())  
     uuid_cpu = platform.node()  
 
+    print("-----------------------------------------------------------")
+    print("SESION ID pruebaGetCuit", session_id)
+    print("-----------------------------------------------------------")
+
     # Obtener datos corporativos
     corporate_data = CorporateData()
     print("Creando instancia de CorporateData...")
@@ -132,6 +148,9 @@ def pruebaGetCUIT():
 def listarLogs():
     corporate_log = CorporateLog()  
 
+    # Obtener CPU id
+    cpu_id = str(uuid.getnode())
+
     # Generar UUIDs
     session_id = str(uuid.uuid4())
 
@@ -139,10 +158,14 @@ def listarLogs():
     corporate_log.logEvent(session_id, "listarLogs")
     print("Evento almacenado en el log.")
     print("")
+
+    print("-----------------------------------------------------------")
+    print("SESION ID listarLogs", session_id)
+    print("-----------------------------------------------------------")
     
     try:
         # Listar todos los logs y obtener los logs para la CPU actual
-        logs = corporate_log.listLogs(platform.node())  
+        logs = corporate_log.listLogs(cpu_id)  
 
         if logs:
             total_logs = len(logs)
@@ -153,7 +176,7 @@ def listarLogs():
 
             # Imprimir todos los logs
             for log in sorted_logs:
-                print(f"Log:\n{json.dumps(log, indent=2)}\n")
+                print(f"Log:\n{json.dumps(log, indent=2, default=decimal_default)}\n")
         else:
             print("No se encontraron logs.")
     except Exception as e:
